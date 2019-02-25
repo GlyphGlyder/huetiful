@@ -42,3 +42,10 @@ export default {
   }
 }
 </script>
+
+<style lang="scss">
+a svg {
+  width: 20px;
+  height: 20px;
+}
+</style>
