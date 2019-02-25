@@ -17,31 +17,24 @@
         <ArrowLeft v-else/>
       </a>
 
-      <hue-window
+      <HueWindow
         v-bind:red="red"
         v-bind:green="green"
-        v-bind:blue="blue">
-      </hue-window>
+        v-bind:blue="blue"/>
 
-      <form class="huetiful-sliders">
+      <div class="huetiful-sliders">
 
-        <hue-slider v-model="red"></hue-slider>
-        <hue-slider v-model="green"></hue-slider>
-        <hue-slider v-model="blue"></hue-slider>
+        <hue-slider color="red" v-on:input="$emit('red', $event)"/>
+        <hue-slider color="green" v-model="green"></hue-slider>
+        <hue-slider color="blue" v-model="blue"></hue-slider>
 
-        <div class="huetiful-rgba">
-          <input type="text" v-model="red">
-          <input type="text" v-model="green">
-          <input type="text" v-model="blue">
-        </div>
+      </div>
 
-        <input
-          type="text"
-          class="huetiful-hex"
-          v-bind:value="colorHex"
-          v-on:input="hexToColor($event.target.value)">
-
-      </form>
+      <RGBAInput
+        v-bind:red="red" v-on:red="$emit('red', $event)"
+        v-bind:green="green" v-on:green="$emit('green', $event)"
+        v-bind:blue="blue" v-on:blue="$emit('blue', $event)"
+        v-on:colors="setColor"/>
 
     </div>
 
@@ -61,6 +54,7 @@ import ArrowRight from '../icons/ArrowRight.vue';
 import HuePalette from './HuePalette.vue';
 import HueSlider from './HueSlider.vue';
 import HueWindow from './HueWindow.vue';
+import RGBAInput from './RGBAInput.vue';
 export default {
 
   name: "HuePanel",
@@ -71,35 +65,14 @@ export default {
     ArrowRight,
     HuePalette,
     HueSlider,
-    HueWindow
+    HueWindow,
+    RGBAInput
   },
 
   data: function() {
     return {
       palette: false
     }
-  },
-
-  computed: {
-
-    colorHex: function() {
-      var red = parseInt(this.red).toString(16).toUpperCase();
-      var blue = parseInt(this.blue).toString(16).toUpperCase();
-      var green = parseInt(this.green).toString(16).toUpperCase();
-
-      if (red.length < 2) {
-        red = "0" + red;
-      }
-      if (blue.length < 2) {
-        blue = "0" + blue;
-      }
-      if (green.length < 2) {
-        green = "0" + green;
-      }
-
-      return "#" + red + blue + green;
-    },
-
   },
 
   methods: {
@@ -111,10 +84,6 @@ export default {
      */
     close: function() {
       this.$emit('close');
-    },
-
-    hexToColor: function(value) {
-
     },
 
     /**
@@ -129,13 +98,14 @@ export default {
     },
 
     setColor: function(color) {
-      this.red = color.red;
-      this.blue = color.blue;
-      this.green = color.green;
+      this.$emit('red', color.red);
+      this.$emit('blue', color.blue);
+      this.$emit('green', color.green);
     }
 
   },
 
+  /*
   watch: {
 
     red: function(val) {
@@ -151,7 +121,7 @@ export default {
     }
 
   }
-
+  */
 
 }
 </script>
@@ -164,40 +134,18 @@ export default {
 }
 
 .huetiful-panel {
-  border: 1px solid #CCC;
+  background-color: #FFF;
+  border: 2px solid #333;
   border-radius: 10px;
-  box-shadow: 0 2px 2px #CCC;
+  box-shadow:
+    0 0 1px #BBB,
+    2px 2px 2px #BBB;
   padding: 10px;
   width: 200px;
-  background-color: #FFF;
 
   .huetiful-window {
     margin: 20px auto;
   }
-}
-
-.huetiful-rgba {
-  display: flex;
-  justify-content: space-between;
-  margin: 10px -5px;
-
-  & input {
-    width: 33.33%;
-    margin: 0 5px;
-    font-size: 12px;
-  }
-}
-
-.huetiful-hex {
-  width: 100%;
-  font-size: 14px;
-}
-
-.huetiful-hex, .huetiful-rgba input {
-  border: none;
-  border-bottom: 1px solid #DDD;
-  text-align: center;
-  font-weight: 500;
 }
 
 .minimize-link {
@@ -222,10 +170,5 @@ export default {
 
 .slide-enter-to, .slide-leave {
   left: 0;
-}
-
-a svg {
-  width: 20px;
-  height: 20px;
 }
 </style>
