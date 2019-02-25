@@ -1,14 +1,26 @@
 {
   "name": "huetiful",
-  "version": "0.1.0",
-  "private": true,
+  "description": "A beautiful vue.js colorpicker",
+  "version": "1.0.12",
+  "author": "Bjorkbat <bjorkbat@gmail.com>",
+  "private": false,
   "scripts": {
     "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build",
+    "build": "vue-cli-service build --target lib --name huetiful 'src/components/Huetiful.vue'",
     "lint": "vue-cli-service lint"
   },
+  "main": "./dist/huetiful.common.js",
+  "files": [
+    "dist/*",
+    "src/*",
+    "public/*",
+    "*.json",
+    "*.js"
+  ],
   "dependencies": {
-    "vue": "^2.6.6"
+    "vue": "^2.6.6",
+    "node-sass": "^4.11.0",
+    "sass-loader": "^7.1.0"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^3.0.0-rc.5",
