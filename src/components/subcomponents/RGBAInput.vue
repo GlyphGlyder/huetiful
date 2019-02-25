@@ -81,17 +81,15 @@ export default {
 						case 1 + offset:
 							// It's red
 							red = parseInt(`${value[i-1]}${value[i]}`, 16)
-
 							break;
 						case 3 + offset:
 							// It's green
 							green = parseInt(`${value[i-1]}${value[i]}`, 16)
-
 							break;
 						case 5 + offset:
 							// It's blue
 							blue = parseInt(`${value[i-1]}${value[i]}`, 16)
-
+							break;
 						default:
 							// It's a very large number.  Doesn't matter
 					}
