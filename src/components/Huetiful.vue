@@ -16,7 +16,7 @@
     <hue-panel
       v-if="!minimized"
       v-on:close="$emit('close')"
-      v-on:minimize="minimized = true"
+      v-on:minimize="minimize"
       v-on:red="$emit('red', $event)"
       v-on:green="$emit('green', $event)"
       v-on:blue="$emit('blue', $event)"
@@ -34,11 +34,28 @@ import HueWindow from './subcomponents/HueWindow.vue';
 export default {
   name: 'Huetiful',
   components: { HuePanel, HueWindow },
-  props: ['red', 'green', 'blue'],
+  props: ['red', 'green', 'blue', 'expand'],
   data: function() {
     return {
-      minimized: true
+      minimized: false
     }
+  },
+
+  methods: {
+
+    // Handles minimize events, and bubbles them up to parent in case it wants
+    // to do anything
+    minimize: function() {
+
+      this.minimized = true;
+      this.$emit('minimize');
+
+    }
+
+  },
+
+  mounted: function() {
+    this.minimized = this.expand ? false : true;
   }
 }
 </script>

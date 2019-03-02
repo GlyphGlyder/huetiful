@@ -9,7 +9,7 @@
       </a>
 
       <a href="#" class="minimize-link" v-on:click.prevent="close">
-        <i class="fa fa-times"></i>
+        <Times/>
       </a>
 
       <a href="#" class="palette-link" v-on:click.prevent="openPalette">
@@ -55,6 +55,7 @@ import HuePalette from './HuePalette.vue';
 import HueSlider from './HueSlider.vue';
 import HueWindow from './HueWindow.vue';
 import RGBAInput from './RGBAInput.vue';
+import Times from '../icons/Times.vue';
 export default {
 
   name: "HuePanel",
@@ -66,7 +67,8 @@ export default {
     HuePalette,
     HueSlider,
     HueWindow,
-    RGBAInput
+    RGBAInput,
+    Times
   },
 
   data: function() {
