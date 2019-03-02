@@ -17,9 +17,9 @@
       v-if="!minimized"
       v-on:close="$emit('close')"
       v-on:minimize="minimized = true"
-      v-on:red="red = $event"
-      v-on:green="green = $event"
-      v-on:blue="blue = $event"
+      v-on:red="$emit('red', $event)"
+      v-on:green="$emit('green', $event)"
+      v-on:blue="$emit('blue', $event)"
       v-bind:red="red"
       v-bind:green="green"
       v-bind:blue="blue">
