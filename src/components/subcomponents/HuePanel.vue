@@ -105,26 +105,8 @@ export default {
       this.$emit('green', color.green);
     }
 
-  },
-
-  /*
-  watch: {
-
-    red: function(val) {
-      this.$emit('red', val);
-    },
-
-    green: function(val) {
-      this.$emit('green', val);
-    },
-
-    blue: function(val) {
-      this.$emit('blue', val);
-    }
-
   }
-  */
-
+  
 }
 </script>
 
@@ -133,6 +115,7 @@ export default {
 #HuePanel {
   display: flex;
   align-items: stretch;
+  position: relative;
 }
 
 .huetiful-panel {

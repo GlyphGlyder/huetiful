@@ -4,6 +4,8 @@
 <template>
   <div id="Huetiful">
 
+    <!-- The window is the default option when everythis is minimized.  Shows
+      the user what the current color is. -->
     <hue-window
       v-if="minimized"
       v-on:click="minimized = false"
