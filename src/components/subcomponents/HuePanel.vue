@@ -2,7 +2,7 @@
 
   <div id="HuePanel">
 
-    <div class="huetiful-panel">
+    <div class="huetiful-panel" :class="{'wide': wide}">
 
       <a href="#" class="minimize-link" v-on:click.prevent="minimize">
         <ArrowDown/>
@@ -59,7 +59,7 @@ import Times from '../icons/Times.vue';
 export default {
 
   name: "HuePanel",
-  props: ['red', 'green', 'blue'],
+  props: ['red', 'green', 'blue', 'wide'],
   components: {
     ArrowDown,
     ArrowLeft,
@@ -131,6 +131,15 @@ export default {
   .huetiful-window {
     margin: 20px auto;
   }
+
+  &.wide {
+    width: 100%;
+  }
+}
+
+.huetiful-sliders {
+  margin: 0 auto;
+  max-width: 200px;
 }
 
 .minimize-link {

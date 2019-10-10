@@ -22,6 +22,21 @@
       <huetiful class="huetiful"
         mode="row"
         orientation="horizontal"
+        :panel="true"
+        :red="red"
+        :green="green"
+        :blue="blue"
+        @color="changeColor"/>
+
+    </div>
+
+    <div class="context" :style="{'background-color': `rgb(${red}, ${green}, ${blue})`}">
+
+      <div class="target" />
+
+      <huetiful class="huetiful"
+        mode="row"
+        orientation="vertical"
         :red="red"
         :green="green"
         :blue="blue"

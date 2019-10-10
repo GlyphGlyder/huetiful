@@ -99,6 +99,7 @@ input[type=range] {
   // Webkit
   &::-webkit-slider-runnable-track {
     width: 100%;
+    max-width: 200px;
     height: 6px;
     cursor: pointer;
     background: #3071a9;

@@ -1,25 +1,33 @@
 <!-- Rather than the window, presents a row of different colors, all designed to
  	be changeable -->
 <template>
-	<div class="hue-row"
-		:class="{
-			'horizontal': orientation == 'horizontal',
-			'vertical': orientation == 'vertical'
-		}">
+	<div :class="{'has-panel': panel}">
 
-		<HuePaletteWell v-for="color in colors"
-			:color="color"
-			@setColor="$emit('selected', $event)"/>
+		<div class="hue-row"
+			:class="{
+				'horizontal': orientation == 'horizontal',
+				'vertical': orientation == 'vertical'
+			}"
+			:style="'panel' ? 'margin-bottom: 10px;' : ''">
 
+			<HuePaletteWell v-for="color in colors"
+				:color="color"
+				@setColor="$emit('selected', $event)"/>
+
+		</div>
+
+		<HuePanel v-if="panel"
+			:wide="orientation == 'horizontal' ? true : false" />
 	</div>
 </template>
 
 <script>
 import HuePaletteWell from './HuePaletteWell.vue';
+import HuePanel from './HuePanel.vue';
 export default {
 	name: "HueRow",
-	props: ['orientation'],
-	components: { HuePaletteWell },
+	props: ['orientation', 'panel'],
+	components: { HuePaletteWell, HuePanel },
 	data: function() {
 		return {
 			colors: [
@@ -63,10 +71,17 @@ export default {
 .hue-row {
 	border: 2px solid #000;
 	border-radius: 4px;
+	box-shadow: 2px 2px 2px #BBB;
 
-	&.horizontal {
+	&.horizontal{
 		display: flex;
 		align-items: center;
 	}
+}
+
+.has-panel {
+	display: flex;
+	flex-direction: column;
+	align-items: stretch;
 }
 </style>

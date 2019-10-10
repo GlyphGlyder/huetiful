@@ -16,6 +16,7 @@
 
     <HueRow v-if="mode == 'row'"
       :orientation="orientation"
+      :panel="panel"
       @selected="$emit('color', $event)"/>
 
     <hue-panel
@@ -40,7 +41,7 @@ import HueWindow from './subcomponents/HueWindow.vue';
 export default {
   name: 'Huetiful',
   components: { HuePanel, HueRow, HueWindow },
-  props: ['red', 'green', 'blue', 'expand', 'mode', 'orientation'],
+  props: ['red', 'green', 'blue', 'expand', 'mode', 'orientation', 'panel'],
   data: function() {
     return {
       minimized: false
