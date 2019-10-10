@@ -1,8 +1,7 @@
 <template>
   <div class="hue-palette-well"
-    v-bind:style="{'background-color': colorRGBA}"
-    v-on:click="setColor">
-  </div>
+    :style="{'background-color': colorRGBA}"
+    @click="setColor"/>
 </template>
 
 <script>

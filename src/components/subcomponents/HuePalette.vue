@@ -233,7 +233,10 @@ export default {
 
 <style lang="scss" scoped>
 .hue-palette {
-  position: relative;
+  position: absolute;
+  left: 240px;
+  top: 0;
+  bottom: 0;
   border: 2px solid #333;
   border-radius: 10px;
   box-shadow:
@@ -241,7 +244,7 @@ export default {
     2px 2px 2px #BBB;
   padding: 10px;
   background-color: #FFF;
-  margin-left: 10px;
+  width: 288px;
 
   & > div {
     display: inline-flex;

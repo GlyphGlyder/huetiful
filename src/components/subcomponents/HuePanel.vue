@@ -106,7 +106,7 @@ export default {
     }
 
   }
-  
+
 }
 </script>
 
@@ -144,7 +144,7 @@ export default {
 }
 
 .slide-enter, .slide-leave-to {
-  left: -150px;
+  left: 0px;
   opacity: 0;
   z-index: -20;
 }
@@ -154,6 +154,6 @@ export default {
 }
 
 .slide-enter-to, .slide-leave {
-  left: 0;
+  left: 240px;
 }
 </style>

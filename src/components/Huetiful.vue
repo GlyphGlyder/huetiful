@@ -6,17 +6,20 @@
 
     <!-- The window is the default option when everythis is minimized.  Shows
       the user what the current color is. -->
-    <hue-window
-      v-if="minimized"
+    <HueWindow
+      v-if="minimized && !mode"
       v-on:click="minimized = false"
       v-bind:minimized="minimized"
       v-bind:red="red"
       v-bind:green="green"
-      v-bind:blue="blue">
-    </hue-window>
+      v-bind:blue="blue"/>
+
+    <HueRow v-if="mode == 'row'"
+      :orientation="orientation"
+      @selected="$emit('color', $event)"/>
 
     <hue-panel
-      v-if="!minimized"
+      v-if="!minimized && mode != 'row'"
       v-on:close="$emit('close')"
       v-on:minimize="minimize"
       v-on:red="$emit('red', $event)"
@@ -32,11 +35,12 @@
 
 <script>
 import HuePanel from './subcomponents/HuePanel.vue';
+import HueRow from './subcomponents/HueRow.vue';
 import HueWindow from './subcomponents/HueWindow.vue';
 export default {
   name: 'Huetiful',
-  components: { HuePanel, HueWindow },
-  props: ['red', 'green', 'blue', 'expand'],
+  components: { HuePanel, HueRow, HueWindow },
+  props: ['red', 'green', 'blue', 'expand', 'mode', 'orientation'],
   data: function() {
     return {
       minimized: false
