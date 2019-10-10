@@ -17,6 +17,7 @@
     <HueRow v-if="mode == 'row'"
       :orientation="orientation"
       :panel="panel"
+      :selected="{red, green, blue}"
       @selected="$emit('color', $event)"/>
 
     <hue-panel

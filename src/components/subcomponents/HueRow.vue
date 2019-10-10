@@ -12,12 +12,17 @@
 
 			<HuePaletteWell v-for="color in colors"
 				:color="color"
+				:selected="color == selected"
 				@setColor="$emit('selected', $event)"/>
 
 		</div>
 
 		<HuePanel v-if="panel"
-			:wide="orientation == 'horizontal' ? true : false" />
+			:wide="orientation == 'horizontal' ? true : false"
+			:static="true"
+			:red="selected.red"
+			:green="selected.green"
+			:blue="selected.blue"/>
 	</div>
 </template>
 
@@ -26,7 +31,7 @@ import HuePaletteWell from './HuePaletteWell.vue';
 import HuePanel from './HuePanel.vue';
 export default {
 	name: "HueRow",
-	props: ['orientation', 'panel'],
+	props: ['orientation', 'panel', 'selected'],
 	components: { HuePaletteWell, HuePanel },
 	data: function() {
 		return {

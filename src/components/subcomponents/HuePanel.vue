@@ -4,18 +4,20 @@
 
     <div class="huetiful-panel" :class="{'wide': wide}">
 
-      <a href="#" class="minimize-link" v-on:click.prevent="minimize">
-        <ArrowDown/>
-      </a>
+      <div v-if="!static">
+        <a href="#" class="minimize-link" v-on:click.prevent="minimize">
+          <ArrowDown/>
+        </a>
 
-      <a href="#" class="minimize-link" v-on:click.prevent="close">
-        <Times/>
-      </a>
+        <a href="#" class="minimize-link" v-on:click.prevent="close">
+          <Times/>
+        </a>
 
-      <a href="#" class="palette-link" v-on:click.prevent="openPalette">
-        <ArrowRight v-if="!palette"/>
-        <ArrowLeft v-else/>
-      </a>
+        <a href="#" class="palette-link" v-on:click.prevent="openPalette">
+          <ArrowRight v-if="!palette"/>
+          <ArrowLeft v-else/>
+        </a>
+      </div>
 
       <HueWindow
         v-bind:red="red"
@@ -59,7 +61,7 @@ import Times from '../icons/Times.vue';
 export default {
 
   name: "HuePanel",
-  props: ['red', 'green', 'blue', 'wide'],
+  props: ['red', 'green', 'blue', 'wide', 'static'],
   components: {
     ArrowDown,
     ArrowLeft,
