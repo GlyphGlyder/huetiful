@@ -18,7 +18,10 @@
       :orientation="orientation"
       :panel="panel"
       :selected="{red, green, blue}"
-      @selected="$emit('color', $event)"/>
+      @selected="$emit('color', $event)"
+      @red="$emit('red', $event)"
+      @green="$emit('green', $event)"
+      @blue="$emit('blue', $event)"/>
 
     <hue-panel
       v-if="!minimized && mode != 'row'"

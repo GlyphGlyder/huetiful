@@ -26,9 +26,23 @@
 
       <div class="huetiful-sliders">
 
-        <hue-slider color="red" v-on:input="$emit('red', $event)"/>
-        <hue-slider color="green" v-on:input="$emit('green', $event)"/>
-        <hue-slider color="blue" v-on:input="$emit('blue', $event)"/>
+        <HueSlider
+          channel="red"
+          :color="red"
+          :whole-color="{red, green, blue}"
+          @color="$emit('red', $event)"/>
+
+        <hue-slider
+          channel="green"
+          :color="green"
+          :whole-color="{red, green, blue}"
+          @color="$emit('green', $event)"/>
+
+        <hue-slider
+          channel="blue"
+          :color="blue"
+          :whole-color="{red, green, blue}"
+          @color="$emit('blue', $event)"/>
 
       </div>
 
@@ -141,7 +155,6 @@ export default {
 
 .huetiful-sliders {
   margin: 0 auto;
-  max-width: 200px;
 }
 
 .minimize-link {

@@ -121,6 +121,10 @@ export default {
 		flex-grow: 1;
     margin: 0 5px;
     font-size: 12px;
+
+		&:last-child {
+			margin: 0;
+		}
   }
 }
 
@@ -134,6 +138,13 @@ export default {
   border: 1px solid #DDD;
 	border-radius: 4px;
   text-align: center;
+	box-shadow: inset 1px 1px 1px #777;
+	padding: 2px;
+
+	&:focus {
+		border-color: #aab4f8;
+		box-shadow: inset 1px 1px 1px #aab4f8;
+	}
 }
 
 .huetiful-rgba input {

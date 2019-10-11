@@ -26,6 +26,9 @@
         :red="red"
         :green="green"
         :blue="blue"
+        @red="changeRed"
+        @green="changeGreen"
+        @blue="changeBlue"
         @color="changeColor"/>
 
     </div>

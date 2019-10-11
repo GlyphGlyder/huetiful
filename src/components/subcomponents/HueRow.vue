@@ -22,7 +22,10 @@
 			:static="true"
 			:red="selected.red"
 			:green="selected.green"
-			:blue="selected.blue"/>
+			:blue="selected.blue"
+			@red="$emit('red', $event)"
+			@green="$emit('green', $event)"
+			@blue="$emit('blue', $event)"/>
 	</div>
 </template>
 

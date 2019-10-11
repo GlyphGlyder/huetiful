@@ -1,19 +1,98 @@
 <template>
+  <div class="hue-slider" ref="slider"
+    @mousemove="dragColor"
+    @mouseup="dragging = false"
+    @mouseleave="dragging = false">
+
+    <div class="slider-tracks"
+      :style="{'background': gradient}"/>
+      
+    <div class="knob" ref="knob"
+      :style="{
+        'left': `${Math.round((color / 255) * 100)}%`
+      }"
+      @mousedown="dragging = true">
+      <div />
+    </div>
+
+  </div>
+  <!--
   <input type="range" min="0" max="255" step="1"
     v-bind:value="value"
     v-on:input="updateColor($event.target.value)"
     v-bind:class="{'red': color == 'red', 'green': color == 'green', 'blue': color == 'blue'}"/>
+  -->
 </template>
 
 <script>
 export default {
   name: "HueSlider",
-  props: ['color', 'value'],
+  props: ['channel', 'color', 'value', 'whole-color'],
+  data: function() {
+    return {
+      dragging: false
+    }
+  },
+
+  computed: {
+
+    // Generates a color gradient from a color with 0 of the color this slider
+    // deals with, all the way up to max
+    gradient: function() {
+
+      let minColor = {
+        red: this.channel == 'red' ? 0 : this.wholeColor.red,
+        green: this.channel == 'green' ? 0: this.wholeColor.green,
+        blue: this.channel == 'blue' ? 0: this.wholeColor.blue
+      };
+
+      let maxColor = {
+        red: this.channel == 'red' ? 255 : this.wholeColor.red,
+        green: this.channel == 'green' ? 255 : this.wholeColor.green,
+        blue: this.channel == 'blue' ? 255 : this.wholeColor.blue
+      };
+
+      return `linear-gradient(0.25turn, rgb(${minColor.red}, ${minColor.green}, ${minColor.blue}), rgb(${maxColor.red}, ${maxColor.green}, ${maxColor.blue}))`;
+    }
+
+  },
 
   methods: {
 
     updateColor: function(value) {
       this.$emit('input', value);
+    },
+
+    dragColor: function(mouse) {
+      if (this.dragging) {
+
+        // Compare delta between mouse position and position of knob.  If the
+        // difference is greater than 1/255th the width of the slider, then
+        // move
+        let knobPos = this.$refs.knob.getBoundingClientRect();
+        let delta = mouse.screenX - knobPos.left;
+
+        let sliderPos = this.$refs.slider.getBoundingClientRect();
+        if (Math.abs(delta / sliderPos.width) > (1/255)) {
+          let colorChange = Math.floor((delta / sliderPos.width) * 128);
+          let newColor = this.color + colorChange;
+          if (newColor >= 0 && newColor <= 255) {
+            this.$emit('color', newColor);
+          }
+        }
+      }
+    },
+
+    trackColor: function(count) {
+
+      let color = {
+        red: this.channel == 'red' ? count / 70 * 255 : this.wholeColor.red,
+        green: this.channel == 'green' ? count / 70 * 255 : this.wholeColor.green,
+        blue: this.channel == 'blue' ? count / 70 * 255 : this.wholeColor.blue
+      }
+
+      return `rgb(${color.red}, ${color.green}, ${color.blue})`;
+
     }
 
   }
@@ -155,4 +234,54 @@ input[type=range] {
 
 }
 
+.hue-slider {
+  width: 100%;
+  padding: 6px 0;
+  margin: 0px auto;
+  position: relative;
+}
+
+.slider-tracks {
+  position: relative;
+  border-radius: 5px;
+  //border: 1px solid #BBB;
+  height: 10px;
+
+  .gradient {
+    position: absolute;
+    top: 1px;
+    height: 8px;
+    left: 1px;
+    right: 1px;
+    border-radius: 4px;
+    background-color: #FFF;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+
+    span {
+      width: 1px;
+      border-left: 1.5px solid #BBB;
+      height: 8px;
+    }
+  }
+
+
+}
+
+.knob {
+  position: absolute;
+  left: 50%;
+  top: 2px;
+
+  & div {
+    position: relative;
+    height: 14px;
+    width: 14px;
+    left: -9px;
+    background-color: #FFF;
+    border: 2px solid #000;
+    border-radius: 4px;
+  }
+}
 </style>
