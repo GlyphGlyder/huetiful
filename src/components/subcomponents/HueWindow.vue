@@ -41,7 +41,6 @@ export default {
   border-radius: 100%;
   border: 1px solid transparent;
   box-shadow: 0 2px 2px #AAA;
-  cursor: pointer;
   height: 100px;
   width: 100px;
   transition: border 0.4s ease;
@@ -50,6 +49,7 @@ export default {
     border-radius: 8px;
     width: 40px;
     height: 40px;
+    cursor: pointer;
   }
 
   &.bordered {
