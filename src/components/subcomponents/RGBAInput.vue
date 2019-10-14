@@ -2,16 +2,36 @@
 <template>
 	<div>
 		<div class="huetiful-rgba">
-			<input type="text" v-bind:value="red" v-on:input="$emit('red', $event.target.value)">
-			<input type="text" v-bind:value="green" v-on:input="$emit('green', $event.target.value)">
-			<input type="text" v-bind:value="blue" v-on:input="$emit('blue', $event.target.value)">
+
+			<span>
+				<strong>R: </strong>
+				<input type="text"
+					:value="red"
+					@input="$emit('red', $event.target.value)">
+			</span>
+
+			<span>
+				<strong>G: </strong>
+				<input type="text"
+					:value="green"
+					@input="$emit('green', $event.target.value)">
+			</span>
+
+			<span>
+				<strong>B: </strong>
+				<input type="text"
+					:value="blue"
+					@input="$emit('blue', $event.target.value)">
+			</span>
+
 		</div>
 
-		<input
-			type="text"
-			class="huetiful-hex"
-			v-bind:value="colorHex"
-			v-on:input="hexToColor($event.target.value)">
+		<div class="huetiful-hex">
+			<strong>RGB: </strong>
+			<input type="text"
+				:value="colorHex"
+				@input="hexToColor($event.target.value)">
+		</div>
 
 	</div>
 </template>
@@ -116,24 +136,38 @@ export default {
   margin: 10px -5px;
 	justify-content: center;
 
-  & input {
+  & span {
 		width: 0;
 		flex-grow: 1;
     margin: 0 5px;
     font-size: 12px;
+		display: flex;
+		align-items: center;
 
 		&:last-child {
 			margin: 0;
+		}
+
+		input {
+			margin-left: 4px;
+			width: 0;
+			flex-grow: 1;
 		}
   }
 }
 
 .huetiful-hex {
-  width: 100%;
-  font-size: 14px;
+	display: flex;
+	align-items: center;
+
+	input {
+		width: 0;
+		flex-grow: 1;
+		font-size: 14px;
+	}
 }
 
-.huetiful-hex, .huetiful-rgba input {
+.huetiful-hex input, .huetiful-rgba input {
   border: none;
   border: 1px solid #DDD;
 	border-radius: 4px;
