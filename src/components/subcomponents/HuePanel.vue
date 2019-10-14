@@ -4,25 +4,18 @@
 
     <div class="huetiful-panel" :class="{'wide': wide}">
 
-      <div v-if="!static">
-        <a href="#" class="minimize-link" v-on:click.prevent="minimize">
-          <ArrowDown/>
-        </a>
-
-        <a href="#" class="minimize-link" v-on:click.prevent="close">
-          <Times/>
-        </a>
-
-        <a href="#" class="palette-link" v-on:click.prevent="openPalette">
-          <ArrowRight v-if="!palette"/>
-          <ArrowLeft v-else/>
-        </a>
-      </div>
+      <!-- Controls.  They can minimize the panel, remove huetiful from view
+        altogether, or ring in a panel for more. -->
+      <HuePanelControls v-if="!static"
+        :palette="palette"
+        @close="$emit('close')"
+        @minimize="$emit('minimize')"
+        @palette="palette = !palette"/>
 
       <HueWindow
-        v-bind:red="red"
-        v-bind:green="green"
-        v-bind:blue="blue"/>
+        :red="red"
+        :green="green"
+        :blue="blue"/>
 
       <div class="huetiful-sliders">
 
@@ -32,13 +25,13 @@
           :whole-color="{red, green, blue}"
           @color="$emit('red', $event)"/>
 
-        <hue-slider
+        <HueSlider
           channel="green"
           :color="green"
           :whole-color="{red, green, blue}"
           @color="$emit('green', $event)"/>
 
-        <hue-slider
+        <HueSlider
           channel="blue"
           :color="blue"
           :whole-color="{red, green, blue}"
@@ -47,16 +40,19 @@
       </div>
 
       <RGBAInput
-        v-bind:red="red" v-on:red="$emit('red', $event)"
-        v-bind:green="green" v-on:green="$emit('green', $event)"
-        v-bind:blue="blue" v-on:blue="$emit('blue', $event)"
-        v-on:colors="setColor"/>
+        :red="red"
+        :green="green"
+        :blue="blue"
+        @red="$emit('red', $event)"
+        @green="$emit('green', $event)"
+        @blue="$emit('blue', $event)"
+        @colors="setColor"/>
 
     </div>
 
     <transition name="slide">
-      <hue-palette v-if="palette"
-        v-on:setColor="setColor"></hue-palette>
+      <HuePalette v-if="palette"
+        @setColor="setColor"/>
     </transition>
 
   </div>
@@ -64,27 +60,21 @@
 </template>
 
 <script>
-import ArrowDown from '../icons/ArrowDown.vue';
-import ArrowLeft from '../icons/ArrowLeft.vue';
-import ArrowRight from '../icons/ArrowRight.vue';
+
 import HuePalette from './HuePalette.vue';
+import HuePanelControls from './HuePanelControls.vue';
 import HueSlider from './HueSlider.vue';
 import HueWindow from './HueWindow.vue';
 import RGBAInput from './RGBAInput.vue';
-import Times from '../icons/Times.vue';
 export default {
-
   name: "HuePanel",
   props: ['red', 'green', 'blue', 'wide', 'static'],
   components: {
-    ArrowDown,
-    ArrowLeft,
-    ArrowRight,
     HuePalette,
+    HuePanelControls,
     HueSlider,
     HueWindow,
-    RGBAInput,
-    Times
+    RGBAInput
   },
 
   data: function() {
@@ -94,26 +84,6 @@ export default {
   },
 
   methods: {
-
-    /**
-     * Emits a close event.  This bubbles all the way on up and out of the
-     * component.  From there, it's up to the user to decide what to do with
-     * it
-     */
-    close: function() {
-      this.$emit('close');
-    },
-
-    /**
-     * Minimizes the panel
-     */
-    minimize: function() {
-      this.$emit('minimize');
-    },
-
-    openPalette: function() {
-      this.palette = !this.palette
-    },
 
     setColor: function(color) {
       this.$emit('red', color.red);
@@ -127,7 +97,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
 #HuePanel {
   display: flex;
   align-items: stretch;
@@ -155,16 +124,6 @@ export default {
 
 .huetiful-sliders {
   margin: 0 auto;
-}
-
-.minimize-link {
-  margin: 0 4px;
-  float: left;
-}
-
-.palette-link {
-  margin: 0 4px;
-  float: right;
 }
 
 .slide-enter, .slide-leave-to {
