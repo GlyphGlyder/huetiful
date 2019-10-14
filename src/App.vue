@@ -22,7 +22,6 @@
       <huetiful class="huetiful"
         mode="row"
         orientation="horizontal"
-        :panel="true"
         :red="red"
         :green="green"
         :blue="blue"
@@ -43,6 +42,43 @@
         :red="red"
         :green="green"
         :blue="blue"
+        @color="changeColor"/>
+
+    </div>
+
+
+    <div class="context" :style="{'background-color': `rgb(${red}, ${green}, ${blue})`}">
+
+      <div class="target" />
+
+      <huetiful class="huetiful"
+        mode="row"
+        orientation="horizontal"
+        :panel="true"
+        :red="red"
+        :green="green"
+        :blue="blue"
+        @red="changeRed"
+        @green="changeGreen"
+        @blue="changeBlue"
+        @color="changeColor"/>
+
+    </div>
+
+    <div class="context" :style="{'background-color': `rgb(${red}, ${green}, ${blue})`}">
+
+      <div class="target" />
+
+      <huetiful class="huetiful"
+        mode="row"
+        orientation="vertical"
+        :panel="true"
+        :red="red"
+        :green="green"
+        :blue="blue"
+        @red="changeRed"
+        @green="changeGreen"
+        @blue="changeBlue"
         @color="changeColor"/>
 
     </div>
@@ -91,6 +127,7 @@ body, html {
   padding: 0;
   margin: 0;
   box-sizing: border-box;
+  font-family: sans-serif;
 }
 
 .huetiful {
