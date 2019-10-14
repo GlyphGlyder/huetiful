@@ -4,16 +4,17 @@
 <template>
   <div id="Huetiful">
 
-    <!-- The window is the default option when everythis is minimized.  Shows
+    <!-- The window is the default option when everything is minimized.  Shows
       the user what the current color is. -->
-    <HueWindow
-      v-if="minimized && !mode"
-      v-on:click="minimized = false"
-      v-bind:minimized="minimized"
-      v-bind:red="red"
-      v-bind:green="green"
-      v-bind:blue="blue"/>
+    <HueWindow v-if="minimized && !mode"
+      :minimized="minimized"
+      :red="red"
+      :green="green"
+      :blue="blue"
+      @click="minimized = false"/>
 
+    <!-- Presents user with a row of up to 6 colors.  Colors can be defined by
+      the user, otherwise we supply them. -->
     <HueRow v-if="mode == 'row'"
       :orientation="orientation"
       :panel="panel"
@@ -23,17 +24,18 @@
       @green="$emit('green', $event)"
       @blue="$emit('blue', $event)"/>
 
-    <hue-panel
-      v-if="!minimized && mode != 'row'"
-      v-on:close="$emit('close')"
-      v-on:minimize="minimize"
-      v-on:red="$emit('red', $event)"
-      v-on:green="$emit('green', $event)"
-      v-on:blue="$emit('blue', $event)"
-      v-bind:red="red"
-      v-bind:green="green"
-      v-bind:blue="blue">
-    </hue-panel>
+    <!-- Default when user expands color picker.  Presents a panel with sliders
+      and a palette of colors. -->
+    <HuePanel v-if="!minimized && mode != 'row'"
+      :red="red"
+      :green="green"
+      :blue="blue"
+      :close="close"
+      @close="$emit('close')"
+      @minimize="minimize"
+      @red="$emit('red', $event)"
+      @green="$emit('green', $event)"
+      @blue="$emit('blue', $event)" />
 
   </div>
 </template>
@@ -45,7 +47,16 @@ import HueWindow from './subcomponents/HueWindow.vue';
 export default {
   name: 'Huetiful',
   components: { HuePanel, HueRow, HueWindow },
-  props: ['red', 'green', 'blue', 'expand', 'mode', 'orientation', 'panel'],
+  props: [
+    'red',
+    'green',
+    'blue',
+    'close',
+    'expand',
+    'mode',
+    'orientation',
+    'panel'
+  ],
   data: function() {
     return {
       minimized: false
