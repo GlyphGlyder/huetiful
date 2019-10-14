@@ -1,27 +1,16 @@
 <template>
-  <div class="hue-slider" ref="slider"
-    @mousemove="dragColor"
-    @mouseup="dragging = false"
-    @mouseleave="dragging = false">
+  <div class="hue-slider" ref="slider">
+
+    <input type="range" min="0" max="255" step="1"
+      :value="color"
+      @input="$emit('color', $event.target.value)"/>
 
     <div class="slider-tracks"
-      :style="{'background': gradient}"/>
-      
-    <div class="knob" ref="knob"
-      :style="{
-        'left': `${Math.round((color / 255) * 100)}%`
-      }"
-      @mousedown="dragging = true">
-      <div />
+      :style="{'background': gradient}">
     </div>
 
   </div>
-  <!--
-  <input type="range" min="0" max="255" step="1"
-    v-bind:value="value"
-    v-on:input="updateColor($event.target.value)"
-    v-bind:class="{'red': color == 'red', 'green': color == 'green', 'blue': color == 'blue'}"/>
-  -->
+
 </template>
 
 <script>
@@ -53,49 +42,11 @@ export default {
       };
 
       return `linear-gradient(0.25turn, rgb(${minColor.red}, ${minColor.green}, ${minColor.blue}), rgb(${maxColor.red}, ${maxColor.green}, ${maxColor.blue}))`;
-    }
-
-  },
-
-  methods: {
-
-    updateColor: function(value) {
-      this.$emit('input', value);
-    },
-
-    dragColor: function(mouse) {
-      if (this.dragging) {
-
-        // Compare delta between mouse position and position of knob.  If the
-        // difference is greater than 1/255th the width of the slider, then
-        // move
-        let knobPos = this.$refs.knob.getBoundingClientRect();
-        let delta = mouse.screenX - knobPos.left;
-
-        let sliderPos = this.$refs.slider.getBoundingClientRect();
-        if (Math.abs(delta / sliderPos.width) > (1/255)) {
-          let colorChange = Math.floor((delta / sliderPos.width) * 128);
-          let newColor = this.color + colorChange;
-          if (newColor >= 0 && newColor <= 255) {
-            this.$emit('color', newColor);
-          }
-        }
-      }
-    },
-
-    trackColor: function(count) {
-
-      let color = {
-        red: this.channel == 'red' ? count / 70 * 255 : this.wholeColor.red,
-        green: this.channel == 'green' ? count / 70 * 255 : this.wholeColor.green,
-        blue: this.channel == 'blue' ? count / 70 * 255 : this.wholeColor.blue
-      }
-
-      return `rgb(${color.red}, ${color.green}, ${color.blue})`;
 
     }
 
   }
+
 }
 </script>
 
@@ -108,9 +59,15 @@ input[type=range] {
   -webkit-appearance: none; // Hides the slider so that custom slider can be made
   width: 100%; // Specific width is required for Firefox.
   background: transparent; // Otherwise white in Chrome
+  position: absolute;
+  z-index: 1000;
+  height: 10px;
+  margin: 0;
+  padding: 0;
 
   &::-webkit-slider-thumb {
     -webkit-appearance: none;
+    display: none;
   }
 
   // This removes the blue border when focused.  Useful
@@ -129,109 +86,36 @@ input[type=range] {
   }
 }
 
-/**
- * Thumb Styling
- */
-input[type=range] {
-
-  // Webkit
-  &::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    border: 2px solid #555;
-    height: 16px;
-    width: 16px;
-    border-radius: 100%;
-    background: #ffffff;
-    cursor: pointer;
-    margin-top: -5.5px; /* You need to specify a margin in Chrome, but in Firefox and IE it is automatic */
-    box-shadow: 0px 1px 1px #AAA; /* Add cool effects to your sliders! */
-  }
-
-  // Firefox
-  &::-moz-range-thumb {
-    box-shadow: 1px 1px 1px #CCC;
-    border: 1px solid #CCC;
-    height: 16px;
-    width: 16px;
-    border-radius: 100%;
-    background: #ffffff;
-    cursor: pointer;
-  }
-
-  // IE
-  &::-ms-thumb {
-    box-shadow: 1px 1px 1px #CCC;
-    border: 1px solid #CCC;
-    height: 16px;
-    width: 16px;
-    border-radius: 100%;
-    background: #ffffff;
-    cursor: pointer;
-  }
+/* Special styling for WebKit/Blink */
+input[type=range]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  border: 2px solid #000000;
+  height: 16px;
+  width: 16px;
+  border-radius: 4px;
+  background: #ffffff;
+  cursor: pointer;
+  margin-top: -14px; /* You need to specify a margin in Chrome, but in Firefox and IE it is automatic */
 }
 
-/**
- * Track Styles
- */
-input[type=range] {
+/* All the same stuff for Firefox */
+input[type=range]::-moz-range-thumb {
+  border: 2px solid #000000;
+  height: 16px;
+  width: 16px;
+  border-radius: 4px;
+  background: #ffffff;
+  cursor: pointer;
+}
 
-  // Webkit
-  &::-webkit-slider-runnable-track {
-    width: 100%;
-    max-width: 200px;
-    height: 6px;
-    cursor: pointer;
-    background: #3071a9;
-    border-radius: 1.3px;
-  }
-
-  &:focus::-webkit-slider-runnable-track {
-    background: #FF0000;
-  }
-
-  // Firefox
-  &::-moz-range-track {
-    width: 100%;
-    height: 6px;
-    cursor: pointer;
-    box-shadow: inset 1px 1px 1px #777, 0px 0px 1px #555;
-    background: #FFFFF8;
-    border-radius: 4px;
-  }
-
-  // IE
-  &::-ms-track {
-    width: 100%;
-    height: 8.4px;
-    cursor: pointer;
-    background: transparent;
-    border-color: transparent;
-    border-width: 16px 0;
-    color: transparent;
-  }
-
-  &::-ms-fill-lower {
-    background: #2a6495;
-    border: 0.2px solid #010101;
-    border-radius: 2.6px;
-    box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
-  }
-
-  &:focus::-ms-fill-lower {
-    background: #3071a9;
-  }
-
-  &::-ms-fill-upper {
-    background: #3071a9;
-    border: 0.2px solid #010101;
-    border-radius: 2.6px;
-    box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
-  }
-
-  &:focus::-ms-fill-upper {
-    background: #367ebd;
-  }
-
+/* All the same stuff for IE */
+input[type=range]::-ms-thumb {
+  border: 2px solid #000000;
+  height: 16px;
+  width: 16px;
+  border-radius: 4px;
+  background: #ffffff;
+  cursor: pointer;
 }
 
 .hue-slider {
