@@ -1,10 +1,9 @@
 <template>
   <div
-    id="HueWindow"
     class="huetiful-window"
-    v-bind:class="{minimized, bordered}"
-    v-bind:style="{'background-color': color}"
-    v-on:click="onClick">
+    :class="{minimized, bordered}"
+    :style="{'background-color': color}"
+    @click="$emit('click')">
   </div>
 </template>
 
@@ -19,7 +18,7 @@ export default {
     // help window contrast better against background
     bordered: function() {
 
-      if (this.red > 250 & this.green > 250 & this.blue > 250) {
+      if (this.red > 248 & this.green > 248 & this.blue > 248) {
         return true;
       }
       return false;
@@ -28,16 +27,8 @@ export default {
     // Defines the color present on the window at a given moment
     color: function() {
 
-      return "rgba(" + this.red + "," + this.green + ", " + this.blue + ", " + 100 + ")";
+      return `rgb(${this.red},${this.green},${this.blue})`;
 
-    }
-
-  },
-
-  methods: {
-
-    onClick: function() {
-      this.$emit('click');
     }
 
   }
