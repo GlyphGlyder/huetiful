@@ -1,14 +1,14 @@
 <!-- Rather than the window, presents a row of different colors, all designed to
  	be changeable -->
 <template>
-	<div :class="{'has-panel': panel}">
+	<div :class="{'has-panel': panel, 'horizontal': orientation == 'horizontal'}">
 
 		<div class="hue-row"
 			:class="{
 				'horizontal': orientation == 'horizontal',
 				'vertical': orientation == 'vertical'
 			}"
-			:style="'panel' ? 'margin-bottom: 10px;' : ''">
+			:style="panelMargin">
 
 			<HuePaletteWell v-for="color in colors"
 				:color="color"
@@ -71,6 +71,22 @@ export default {
 				}
 			]
 		}
+	},
+
+	computed: {
+
+		panelMargin: function() {
+
+			if (this.panel && this.orientation == 'horizontal') {
+				return 'margin-bottom: 10px;'
+			} else if (this.panel) {
+				return 'margin-right: 10px;'
+			}
+
+			return '';
+
+		}
+
 	}
 }
 </script>
@@ -78,18 +94,27 @@ export default {
 <style lang="scss" scoped>
 .hue-row {
 	border: 2px solid #000;
-	border-radius: 4px;
+	border-radius: 10px;
 	box-shadow: 2px 2px 2px #BBB;
 
 	&.horizontal{
 		display: flex;
 		align-items: center;
 	}
+
+	&.vertical {
+		display: flex;
+		align-items: center;
+		flex-direction: column;
+	}
 }
 
 .has-panel {
 	display: flex;
-	flex-direction: column;
 	align-items: stretch;
+
+	&.horizontal {
+		flex-direction: column;
+	}
 }
 </style>
