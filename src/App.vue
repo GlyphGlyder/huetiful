@@ -55,6 +55,7 @@
         mode="row"
         orientation="horizontal"
         :panel="true"
+        :change-color="true"
         :red="red"
         :green="green"
         :blue="blue"
@@ -95,7 +96,8 @@ export default {
     return {
       red: 255,
       green: 0,
-      blue: 0
+      blue: 0,
+      colors: []
     }
   },
 

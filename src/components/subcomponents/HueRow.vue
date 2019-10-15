@@ -23,55 +23,22 @@
 			:red="selected.red"
 			:green="selected.green"
 			:blue="selected.blue"
-			@red="$emit('red', $event)"
-			@green="$emit('green', $event)"
-			@blue="$emit('blue', $event)"/>
+			@red="handleColor('red', $event)"
+			@green="handleColor('green', $event)"
+			@blue="handleColor('blue', $event)"/>
+
 	</div>
 </template>
 
 <script>
+import DefaultRow from '../../mixins/defaultrow.js';
 import HuePaletteWell from './HuePaletteWell.vue';
 import HuePanel from './HuePanel.vue';
 export default {
 	name: "HueRow",
-	props: ['orientation', 'panel', 'selected'],
+	props: ['change-color', 'orientation', 'panel', 'selected'],
 	components: { HuePaletteWell, HuePanel },
-	data: function() {
-		return {
-			colors: [
-				{
-					red: 255,
-					green: 46,
-					blue: 0
-				},
-				{
-					red: 255,
-					green: 162,
-					blue: 39
-				},
-				{
-					red: 255,
-					green: 208,
-					blue: 0
-				},
-				{
-					red: 0,
-					green: 226,
-					blue: 64
-				},
-				{
-					red: 35,
-					green: 168,
-					blue: 252
-				},
-				{
-					red: 109,
-					green: 0,
-					blue: 255
-				}
-			]
-		}
-	},
+	mixins: [ DefaultRow ],
 
 	computed: {
 
@@ -84,6 +51,38 @@ export default {
 			}
 
 			return '';
+
+		}
+
+	},
+
+	methods: {
+
+		// The row comes with a default color palette, but the user can elect to
+		// change said colors as they use the panel.  If they've elected to do this,
+		// then this function will emit the color event as usual, but also change
+		// the selected color
+		handleColor: function(channel, value) {
+
+
+			if (this.changeColor) {
+
+				for(let i = 0; i < this.colors.length; i ++) {
+
+					let channelEquals = this.colors[i].red == this.selected.red &&
+						this.colors[i].green == this.selected.green &&
+						this.colors[i].blue == this.selected.blue;
+
+					if (channelEquals) {
+
+						this.colors[i][channel] = value;
+						break;
+
+					}
+				}
+			}
+
+			this.$emit(channel, parseInt(value));
 
 		}
 

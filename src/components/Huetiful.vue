@@ -16,6 +16,7 @@
     <!-- Presents user with a row of up to 6 colors.  Colors can be defined by
       the user, otherwise we supply them. -->
     <HueRow v-if="mode == 'row'"
+      :change-color="changeColor"
       :orientation="orientation"
       :panel="panel"
       :selected="{red, green, blue}"
@@ -48,6 +49,8 @@ export default {
   name: 'Huetiful',
   components: { HuePanel, HueRow, HueWindow },
   props: [
+    'change-color',
+    'colors',
     'red',
     'green',
     'blue',
