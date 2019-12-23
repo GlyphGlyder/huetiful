@@ -64,6 +64,7 @@ input[type=range] {
   height: 10px;
   margin: 0;
   padding: 0;
+  left: 0;
 
   &::-webkit-slider-thumb {
     -webkit-appearance: none;
@@ -149,7 +150,6 @@ input[type=range]::-ms-thumb {
       height: 8px;
     }
   }
-
 
 }
 
