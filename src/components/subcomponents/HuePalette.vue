@@ -250,6 +250,7 @@ export default {
   &.mode-full {
     position: static;
     margin-left: 10px;
+    width: auto
   }
 
   & > div {
