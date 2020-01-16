@@ -6,7 +6,7 @@
 
       <!-- Controls.  They can minimize the panel, remove huetiful from view
         altogether, or ring in a panel for more. -->
-      <HuePanelControls v-if="!static"
+      <HuePanelControls v-if="!static && mode != 'full'"
         :palette="palette"
         @close="$emit('close')"
         @minimize="$emit('minimize')"
@@ -51,7 +51,8 @@
     </div>
 
     <transition name="slide">
-      <HuePalette v-if="palette"
+      <HuePalette v-if="palette || mode == 'full'"
+        :mode="mode"
         @setColor="setColor"/>
     </transition>
 
@@ -68,7 +69,7 @@ import HueWindow from './HueWindow.vue';
 import RGBAInput from './RGBAInput.vue';
 export default {
   name: "HuePanel",
-  props: ['red', 'green', 'blue', 'wide', 'static'],
+  props: ['red', 'green', 'blue', 'wide', 'mode', 'static'],
   components: {
     HuePalette,
     HuePanelControls,

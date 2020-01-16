@@ -1,5 +1,5 @@
 <template>
-  <div id="HuePalette" class="hue-palette">
+  <div id="HuePalette" class="hue-palette" :class="{'mode-full': mode == 'full'}">
 
     <div>
       <hue-palette-well v-for="color in colors.setOne"
@@ -51,6 +51,7 @@ import HuePaletteWell from './HuePaletteWell.vue';
 export default {
   name: "HuePalette",
   components: { HuePaletteWell },
+  props: ['mode'],
 
   data: function() {
     return {
@@ -245,6 +246,11 @@ export default {
   padding: 10px;
   background-color: #FFF;
   width: 288px;
+
+  &.mode-full {
+    position: static;
+    margin-left: 10px;
+  }
 
   & > div {
     display: inline-flex;

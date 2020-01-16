@@ -32,6 +32,7 @@
       :green="green"
       :blue="blue"
       :close="close"
+      :mode="mode"
       @close="$emit('close')"
       @minimize="minimize"
       @red="$emit('red', $event)"
@@ -80,7 +81,7 @@ export default {
   },
 
   mounted: function() {
-    this.minimized = this.expand ? false : true;
+    this.minimized = this.expand || this.mode == 'full' ? false : true;
   }
 }
 </script>

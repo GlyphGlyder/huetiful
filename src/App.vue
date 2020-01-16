@@ -84,6 +84,24 @@
 
     </div>
 
+    <div class="context" :style="{'background-color': `rgb(${red}, ${green}, ${blue})`}">
+
+      <div class="target" />
+
+      <huetiful class="huetiful"
+        mode="full"
+        orientation="row"
+        :red="red"
+        :green="green"
+        :blue="blue"
+        @red="changeRed"
+        @green="changeGreen"
+        @blue="changeBlue"
+        @color="changeColor"/>
+
+    </div>
+
+
   </div>
 </template>
 
