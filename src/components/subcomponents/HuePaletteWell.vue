@@ -37,5 +37,6 @@ export default {
   width: 40px;
   margin: 4px;
   cursor: pointer;
+  box-shadow: inset 1px 1px 1px rgba(0, 0, 0, 0.2);
 }
 </style>

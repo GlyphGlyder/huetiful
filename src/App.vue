@@ -142,31 +142,4 @@ export default {
 }
 </script>
 
-<style lang="scss">
-body, html {
-  padding: 0;
-  margin: 0;
-  box-sizing: border-box;
-  font-family: sans-serif;
-}
-
-.huetiful {
-  z-index: 1000;
-}
-
-.context {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 100vh;
-  width: 100%;
-  position: relative;
-}
-
-.target {
-  position: absolute;
-  width: 80%;
-  height: 80%;
-  background-color: #FFF;
-}
-</style>
+<style src="./styles/style.scss" lang="scss" />

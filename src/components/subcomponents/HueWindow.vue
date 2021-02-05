@@ -1,10 +1,11 @@
 <template>
+
   <div
     class="huetiful-window"
     :class="{minimized, bordered}"
     :style="{'background-color': color}"
-    @click="$emit('click')">
-  </div>
+    @click="$emit('click')"/>
+
 </template>
 
 <script>
@@ -36,13 +37,14 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import '../../styles/style.scss';
 .huetiful-window {
   background-color: #FF0000;
   border-radius: 100%;
   border: 1px solid transparent;
-  box-shadow: 0 2px 2px #AAA;
   height: 100px;
   width: 100px;
+  @include shadow;
   transition: border 0.4s ease;
 
   &.minimized {

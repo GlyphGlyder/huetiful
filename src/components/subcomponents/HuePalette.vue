@@ -233,16 +233,17 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import '../../styles/style.scss';
 .hue-palette {
   position: absolute;
   left: 240px;
   top: 0;
   bottom: 0;
-  border: 2px solid #333;
-  border-radius: 10px;
-  box-shadow:
-    0 0 1px #BBB,
-    2px 2px 2px #BBB;
+  border: 1px solid #C1C8E8;
+	border-right-color: #A2A8C2;
+	border-bottom-color: #A2A8C2;
+  border-radius: 4px;
+  @include shadow;
   padding: 10px;
   background-color: #FFF;
   width: 288px;

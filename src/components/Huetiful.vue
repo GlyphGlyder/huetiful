@@ -1,6 +1,7 @@
 <!-- Huetiful itself.  Juggles between rendering two components.  The window,
   which is effectively a rounded square, and the panel, which is where all the
-  action happens -->
+  action happens, albeit you can configure it to keep the window and have the
+  panel render to the side -->
 <template>
   <div id="Huetiful">
 
@@ -11,6 +12,8 @@
       :red="red"
       :green="green"
       :blue="blue"
+      :keep="keep"
+      :inset="inset"
       @click="minimized = false"/>
 
     <!-- Presents user with a row of up to 6 colors.  Colors can be defined by

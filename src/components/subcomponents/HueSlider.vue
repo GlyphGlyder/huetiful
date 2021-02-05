@@ -51,7 +51,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
+@import '../../styles/style.scss';
 /**
  * CSS used to hide the input range
  */
@@ -90,32 +90,42 @@ input[type=range] {
 /* Special styling for WebKit/Blink */
 input[type=range]::-webkit-slider-thumb {
   -webkit-appearance: none;
-  border: 2px solid #000000;
-  height: 16px;
+  border: 1px solid #C1C8E8;
+	border-right-color: #9298B2;
+	border-bottom-color: #9298B2;  height: 16px;
   width: 16px;
   border-radius: 4px;
   background: #ffffff;
   cursor: pointer;
+  box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
+
   margin-top: -14px; /* You need to specify a margin in Chrome, but in Firefox and IE it is automatic */
 }
 
 /* All the same stuff for Firefox */
 input[type=range]::-moz-range-thumb {
-  border: 2px solid #000000;
-  height: 16px;
+  border: 1px solid #C1C8E8;
+	border-right-color: #9298B2;
+	border-bottom-color: #9298B2;  height: 16px;
   width: 16px;
   border-radius: 4px;
   background: #ffffff;
+  box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
+
   cursor: pointer;
 }
 
 /* All the same stuff for IE */
 input[type=range]::-ms-thumb {
-  border: 2px solid #000000;
+  border: 1px solid #C1C8E8;
+	border-right-color: #9298B2;
+	border-bottom-color: #9298B2;
   height: 16px;
   width: 16px;
   border-radius: 4px;
   background: #ffffff;
+  box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
+
   cursor: pointer;
 }
 
@@ -129,7 +139,7 @@ input[type=range]::-ms-thumb {
 .slider-tracks {
   position: relative;
   border-radius: 5px;
-  //border: 1px solid #BBB;
+  box-shadow: inset 1px 1px 2px rgba(0, 0, 0, 0.2);
   height: 10px;
 
   .gradient {
@@ -151,21 +161,5 @@ input[type=range]::-ms-thumb {
     }
   }
 
-}
-
-.knob {
-  position: absolute;
-  left: 50%;
-  top: 2px;
-
-  & div {
-    position: relative;
-    height: 14px;
-    width: 14px;
-    left: -9px;
-    background-color: #FFF;
-    border: 2px solid #000;
-    border-radius: 4px;
-  }
 }
 </style>
