@@ -1,9 +1,7 @@
 <template>
   <div id="Demo">
 
-    <div class="context" :style="{'background-color': `rgb(${red}, ${green}, ${blue})`}">
-
-      <div class="target"/>
+    <DemoSection :red="red" :green="green" :blue="blue">
 
       <huetiful class="huetiful"
         :red="red"
@@ -13,11 +11,24 @@
         @green="changeGreen"
         @blue="changeBlue"/>
 
-    </div>
+    </DemoSection>
 
-    <div class="context" :style="{'background-color': `rgb(${red}, ${green}, ${blue})`}">
+    <DemoSection :red="red" :green="green" :blue="blue">
 
-      <div class="target" />
+      <!-- This example keeps the window, and renders the panel as a pop-up -->
+      <huetiful class="huetiful"
+        :red="red"
+        :green="green"
+        :blue="blue"
+        :keep="true"
+        :inset="true"
+        @red="changeRed"
+        @green="changeGreen"
+        @blue="changeBlue"/>
+
+    </DemoSection>
+
+    <DemoSection :red="red" :green="green" :blue="blue">
 
       <huetiful class="huetiful"
         mode="row"
@@ -30,11 +41,9 @@
         @blue="changeBlue"
         @color="changeColor"/>
 
-    </div>
+    </DemoSection>
 
-    <div class="context" :style="{'background-color': `rgb(${red}, ${green}, ${blue})`}">
-
-      <div class="target" />
+    <DemoSection :red="red" :green="green" :blue="blue">
 
       <huetiful class="huetiful"
         mode="row"
@@ -44,12 +53,9 @@
         :blue="blue"
         @color="changeColor"/>
 
-    </div>
+    </DemoSection>
 
-
-    <div class="context" :style="{'background-color': `rgb(${red}, ${green}, ${blue})`}">
-
-      <div class="target" />
+    <DemoSection :red="red" :green="green" :blue="blue">
 
       <huetiful class="huetiful"
         mode="row"
@@ -64,11 +70,9 @@
         @blue="changeBlue"
         @color="changeColor"/>
 
-    </div>
+    </DemoSection>
 
-    <div class="context" :style="{'background-color': `rgb(${red}, ${green}, ${blue})`}">
-
-      <div class="target" />
+    <DemoSection :red="red" :green="green" :blue="blue">
 
       <huetiful class="huetiful"
         mode="row"
@@ -82,11 +86,9 @@
         @blue="changeBlue"
         @color="changeColor"/>
 
-    </div>
+    </DemoSection>
 
-    <div class="context" :style="{'background-color': `rgb(${red}, ${green}, ${blue})`}">
-
-      <div class="target" />
+    <DemoSection :red="red" :green="green" :blue="blue">
 
       <huetiful class="huetiful"
         mode="full"
@@ -99,17 +101,17 @@
         @blue="changeBlue"
         @color="changeColor"/>
 
-    </div>
-
+    </DemoSection>
 
   </div>
 </template>
 
 <script>
+import DemoSection from './components/demo/DemoSection.vue';
 import Huetiful from './components/Huetiful.vue';
 export default {
   name: 'Demo',
-  components: { Huetiful },
+  components: { DemoSection, Huetiful },
   data: function() {
     return {
       red: 255,

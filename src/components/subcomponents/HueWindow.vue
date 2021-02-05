@@ -2,7 +2,7 @@
 
   <div
     class="huetiful-window"
-    :class="{minimized, bordered}"
+    :class="{minimized, bordered, inset}"
     :style="{'background-color': color}"
     @click="$emit('click')"/>
 
@@ -11,7 +11,7 @@
 <script>
 export default {
   name: "HueWindow",
-  props: ['minimized', 'red', 'green', 'blue'],
+  props: ['minimized', 'inset', 'keep', 'red', 'green', 'blue'],
 
   computed: {
 
@@ -52,6 +52,10 @@ export default {
     width: 40px;
     height: 40px;
     cursor: pointer;
+  }
+
+  &.inset {
+    box-shadow: inset 1px 1px 2px rgba(0, 0, 0, 0.2);
   }
 
   &.bordered {

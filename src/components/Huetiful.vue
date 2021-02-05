@@ -7,8 +7,8 @@
 
     <!-- The window is the default option when everything is minimized.  Shows
       the user what the current color is. -->
-    <HueWindow v-if="minimized && !mode"
-      :minimized="minimized"
+    <HueWindow v-if="keep || minimized && !mode"
+      :minimized="keep || minimized"
       :red="red"
       :green="green"
       :blue="blue"
@@ -62,7 +62,9 @@ export default {
     'expand',
     'mode',
     'orientation',
-    'panel'
+    'panel',
+    'keep',
+    'inset'
   ],
   data: function() {
     return {
