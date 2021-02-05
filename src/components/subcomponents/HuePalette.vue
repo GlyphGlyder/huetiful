@@ -235,17 +235,13 @@ export default {
 <style lang="scss" scoped>
 @import '../../styles/style.scss';
 .hue-palette {
+  @include standard-box;
+  @include shadow;
   position: absolute;
   left: 240px;
   top: 0;
   bottom: 0;
-  border: 1px solid #C1C8E8;
-	border-right-color: #A2A8C2;
-	border-bottom-color: #A2A8C2;
-  border-radius: 4px;
-  @include shadow;
-  padding: 10px;
-  background-color: #FFF;
+  padding: 8px;
   width: 288px;
 
   &.mode-full {

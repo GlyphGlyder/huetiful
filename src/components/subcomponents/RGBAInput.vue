@@ -131,6 +131,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import '../../styles/style.scss';
 .huetiful-rgba {
   display: flex;
   margin: 10px -5px;
@@ -168,9 +169,7 @@ export default {
 }
 
 .huetiful-hex input, .huetiful-rgba input {
-	border: 1px solid #C1C8E8;
-	border-right-color: #A2A8C2;
-	border-bottom-color: #A2A8C2;
+	@include standard-borders
 	border-radius: 3px;
   text-align: center;
 	box-shadow: inset 1px 1px 2px rgba(0, 0, 0, 0.2);

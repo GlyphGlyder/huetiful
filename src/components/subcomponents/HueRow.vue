@@ -91,10 +91,11 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import '../../styles/style.scss';
 .hue-row {
-	border: 2px solid #000;
-	border-radius: 10px;
-	box-shadow: 2px 2px 2px #BBB;
+	@include shadow;
+	@include standard-borders;
+	border-radius: 4px;
 
 	&.horizontal{
 		display: flex;

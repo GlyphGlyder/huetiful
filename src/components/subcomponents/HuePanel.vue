@@ -106,13 +106,9 @@ export default {
 }
 
 .huetiful-panel {
-  background-color: #FFF;
-  border: 1px solid #C1C8E8;
-	border-right-color: #A2A8C2;
-	border-bottom-color: #A2A8C2;
-  border-radius: 4px;
+  @include standard-box;
   @include shadow;
-  padding: 10px;
+  padding: 8px;
   width: 200px;
 
   .huetiful-window {

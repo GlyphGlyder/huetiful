@@ -1,8 +1,21 @@
 // All the shared styles for the huetiful.  Not a lot of them are shared, hence
 // why it's just one file
 
+$white: #FFF;
 @mixin shadow {
   box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.2);
+}
+
+@mixin standard-box {
+  @include standard-borders
+  background-color: $white;
+  border-radius: 4px;
+}
+
+@mixin standard-borders {
+  border: 1px solid #C1C8E8;
+  border-right-color: #A2A8C2;
+  border-bottom-color: #A2A8C2;
 }
 
 body, html {
