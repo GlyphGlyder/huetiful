@@ -7,14 +7,14 @@
 
     <!-- The window is the default option when everything is minimized.  Shows
       the user what the current color is. -->
-    <HueWindow v-if="keep || minimized && !mode"
+    <HueWindow v-if="keep || minimized && !mode" ref="hueWindow"
       :minimized="keep || minimized"
       :red="red"
       :green="green"
       :blue="blue"
       :keep="keep"
       :inset="inset"
-      @click="minimized = false"/>
+      @click="minimized = !minimized"/>
 
     <!-- Presents user with a row of up to 6 colors.  Colors can be defined by
       the user, otherwise we supply them. -->
@@ -36,6 +36,8 @@
       :blue="blue"
       :close="close"
       :mode="mode"
+      :keep="keep"
+      :window="element"
       @close="$emit('close')"
       @minimize="minimize"
       @red="$emit('red', $event)"
@@ -68,7 +70,8 @@ export default {
   ],
   data: function() {
     return {
-      minimized: false
+      minimized: false,
+      element: this.$refs.hueWindow,
     }
   },
 
@@ -86,6 +89,7 @@ export default {
   },
 
   mounted: function() {
+    this.element = this.$refs.hueWindow;
     this.minimized = this.expand || this.mode == 'full' ? false : true;
   }
 }

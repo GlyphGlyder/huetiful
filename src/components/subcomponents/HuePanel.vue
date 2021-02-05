@@ -1,6 +1,6 @@
 <template>
 
-  <div id="HuePanel">
+  <div id="HuePanel" ref="panel">
 
     <div class="huetiful-panel" :class="{'wide': wide}">
 
@@ -50,18 +50,18 @@
 
     </div>
 
-    <transition name="slide">
-      <HuePalette v-if="palette || mode == 'full'"
-        :mode="mode"
-        @setColor="setColor"/>
-    </transition>
+    <HuePalette v-if="palette || mode == 'full'"
+      :mode="mode"
+      :panel="element"
+      :keep="keep"
+      @setColor="setColor"/>
 
   </div>
 
 </template>
 
 <script>
-
+import { createPopper } from '@popperjs/core';
 import HuePalette from './HuePalette.vue';
 import HuePanelControls from './HuePanelControls.vue';
 import HueSlider from './HueSlider.vue';
@@ -69,7 +69,7 @@ import HueWindow from './HueWindow.vue';
 import RGBAInput from './RGBAInput.vue';
 export default {
   name: "HuePanel",
-  props: ['red', 'green', 'blue', 'wide', 'mode', 'static'],
+  props: ['red', 'green', 'blue', 'wide', 'mode', 'static', 'keep', 'window'],
   components: {
     HuePalette,
     HuePanelControls,
@@ -80,7 +80,9 @@ export default {
 
   data: function() {
     return {
-      palette: false
+      element: null,
+      palette: false,
+      popperInstance: null
     }
   },
 
@@ -90,6 +92,29 @@ export default {
       this.$emit('red', color.red);
       this.$emit('blue', color.blue);
       this.$emit('green', color.green);
+    }
+
+  },
+
+  // If keep is true, then we instead render the panel as a popover
+  mounted: function() {
+
+    this.element = this.$refs.panel;
+
+    if (this.keep) {
+
+      this.popperInstance = createPopper(this.window.$el, this.$refs.panel, {
+        placement: this.keep.placement ? this.keep.placement : 'right-end',
+        modifiers: [
+          {
+            name: 'offset',
+            options: {
+              offset: [1, 8]
+            }
+          }
+        ]
+      });
+
     }
 
   }
@@ -122,20 +147,5 @@ export default {
 
 .huetiful-sliders {
   margin: 0 auto;
-}
-
-.slide-enter, .slide-leave-to {
-  left: 0px;
-  opacity: 0;
-  z-index: -20;
-}
-
-.slide-enter-active, .slide-leave-active {
-  transition: left 0.25s ease, opacity 0.25s ease;
-}
-
-.slide-enter-to, .slide-leave {
-  z-index: -20;
-  left: 240px;
 }
 </style>

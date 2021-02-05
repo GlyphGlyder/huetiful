@@ -1,5 +1,6 @@
 <template>
-  <div id="HuePalette" class="hue-palette" :class="{'mode-full': mode == 'full'}">
+  <div id="HuePalette" class="hue-palette" ref="palette"
+    :class="{'mode-full': mode == 'full'}">
 
     <div>
       <hue-palette-well v-for="color in colors.setOne"
@@ -47,11 +48,12 @@
 </template>
 
 <script>
+import { createPopper } from '@popperjs/core';
 import HuePaletteWell from './HuePaletteWell.vue';
 export default {
   name: "HuePalette",
   components: { HuePaletteWell },
-  props: ['mode'],
+  props: ['keep', 'mode', 'panel'],
 
   data: function() {
     return {
@@ -228,6 +230,26 @@ export default {
       this.$emit('setColor', color);
     }
 
+  },
+
+  mounted: function() {
+
+    if (this.mode != 'full') {
+
+      this.popperInstance = createPopper(this.panel, this.$refs.palette, {
+        placement: this.keep && this.keep.placement ? this.keep.placement : 'right-start',
+        modifiers: [
+          {
+            name: 'offset',
+            options: {
+              offset: [0, 8]
+            }
+          }
+        ]
+      });
+
+    }
+
   }
 }
 </script>
@@ -237,10 +259,6 @@ export default {
 .hue-palette {
   @include standard-box;
   @include shadow;
-  position: absolute;
-  left: 240px;
-  top: 0;
-  bottom: 0;
   padding: 8px;
   width: 288px;
 
